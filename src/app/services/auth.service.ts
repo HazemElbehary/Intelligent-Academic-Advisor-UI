@@ -53,7 +53,7 @@ export class AuthService {
 
   refreshToken(): Observable<boolean> {
     return this.http
-      .post<{ token: string }>('/refreshToken', 
+      .post<{ token: string }>(`${this.baseUrl}/refreshToken`, 
         {},                                // empty body
         { withCredentials: true }          // ← tell the browser: send cookies
       )
