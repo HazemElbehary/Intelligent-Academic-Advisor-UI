@@ -1,0 +1,159 @@
+<div class="flex flex-col justify-content-center align-items-center h-full">
+  <form [formGroup]="registerForm" (ngSubmit)="submitDetails()">
+    <p-card header="Register" [style]="{ width: '360px' }">
+      <!-- User Name -->
+      <div class="field">
+        <label for="userName">User Name</label>
+        <input
+          type="text"
+          pInputText
+          formControlName="userName"
+          class="w-full"
+          name="userName"
+          placeholder="Type your User Name"
+        />
+        <small
+          *ngIf="userName.invalid && (userName.dirty || userName.touched)"
+          class="block p-error"
+        >
+          <div *ngIf="userName.errors?.['required']">User Name is required.</div>
+          <div *ngIf="userName.errors?.['pattern']">
+            User Name can only contain letters, numbers, and underscores.
+          </div>
+        </small>
+      </div>
+      <!-- FCAIID -->
+      <div class="field">
+        <label for="fcaiid">Cairo University ID</label>
+        <input
+          type="text"
+          pInputText
+          formControlName="fcaiid"
+          class="w-full"
+          name="fcaiid"
+          placeholder="Type your Cairo University ID"
+        />
+        <small
+          *ngIf="fcaiid.invalid && (fcaiid.dirty || fcaiid.touched)"
+          class="block p-error"
+        >
+          <div *ngIf="fcaiid.errors?.['required']">ID is required.</div>
+          <div *ngIf="fcaiid.errors?.['pattern']">ID should be valid.</div>
+        </small>
+      </div>
+      <!-- GPA -->
+      <div class="field">
+        <label for="gpa">GPA</label>
+        <input
+          type="number"
+          pInputText
+          formControlName="gpa"
+          class="w-full"
+          name="gpa"
+          placeholder="Type your GPA"
+          step="0.01"
+          min="0"
+          max="4"
+        />
+        <small
+          *ngIf="gpa.invalid && (gpa.dirty || gpa.touched)"
+          class="block p-error"
+        >
+          <div *ngIf="gpa.errors?.['required']">GPA is required.</div>
+          <div *ngIf="gpa.errors?.['min'] || gpa.errors?.['max']">
+        GPA should be in range [0, 4].
+          </div>
+        </small>
+      </div>
+      <!-- Password -->
+      <div class="field">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          pInputText
+          formControlName="password"
+          class="w-full"
+          name="password"
+          placeholder="Type your Password"
+        />
+        <small *ngIf="password.invalid && (password.dirty || password.touched)" class="block p-error">
+          <div *ngIf="password.errors?.['required']">Password is required.</div>
+          <div *ngIf="password.errors?.['minlength']">Password must be at least 8 characters long.</div>
+          <div *ngIf="password.errors?.['uppercase']">Password must contain at least one uppercase letter (A-Z).</div>
+          <div *ngIf="password.errors?.['lowercase']">Password must contain at least one lowercase letter (a-z).</div>
+          <div *ngIf="password.errors?.['digit']">Password must contain at least one digit (0-9).</div>
+          <div *ngIf="password.errors?.['special']">Password must contain at least one special character (&#64;, $, !, %, *, ?, &).</div>
+        </small>
+      </div>
+      <!-- Confirmed Password -->
+      <div class="field">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          pInputText
+          formControlName="confirmPassword"
+          class="w-full"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+        />
+        <small
+          *ngIf="
+            confirmPassword.invalid &&
+            (confirmPassword.dirty || confirmPassword.touched)
+          "
+          class="block p-error"
+        >
+          <div *ngIf="confirmPassword.errors?.['required']">
+            Confirm the password
+          </div>
+        </small>
+        <small
+          class="block p-error"
+          *ngIf="registerForm.errors?.['passwordMismatch'] && confirmPassword.valid && password.valid"
+        >
+          Password should match
+        </small>
+      </div>
+      <!-- University -->
+      <div class="field">
+        <label for="UniversityId" class="block mb-2">University</label>
+        <p-dropdown
+          [options]="UniversityOptions"
+          formControlName="UniversityId"
+          class="w-full"
+          placeholder="Select your university"
+        ></p-dropdown>
+        <small
+          *ngIf="
+            UniversityId.invalid &&
+            (UniversityId.dirty || UniversityId.touched)
+          "
+          class="block p-error"
+        >
+          <div *ngIf="UniversityId.errors?.['required']">
+            University is required.
+          </div>
+        </small>
+      </div>
+      
+      <!-- Department -->
+      <div class="field">
+        <label for="DepartmentId" class="block mb-2">Department</label>
+        <p-dropdown
+          [options]="DepartmentOptions"
+          formControlName="DepartmentId"
+          class="w-full"
+          placeholder="Select your department"
+        ></p-dropdown>
+      </div>
+
+      <p-button
+        label="Register"
+        styleClass="w-full"
+        [disabled]="registerForm.invalid"
+        type="submit"
+      ></p-button>
+      <div class="mt-2">Already a member? <a routerLink="/login">Login</a></div>
+    </p-card>
+  </form>
+</div>

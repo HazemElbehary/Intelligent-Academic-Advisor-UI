@@ -1,0 +1,49 @@
+<div class="flex justify-content-center align-items-center h-screen">
+  <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+    <p-card header="Login" [style]="{ width: '360px' }">
+      <!-- FCAIID -->
+      <div class="field">
+        <label for="fcaiid">Cairo University ID</label>
+        <input
+          type="text"
+          pInputText
+          formControlName="fcaiid"
+          class="w-full"
+          name="fcaiid"
+          placeholder="Type your Cairo University ID"
+        />
+        <small
+          *ngIf="fcaiid.invalid && (fcaiid.dirty || fcaiid.touched)"
+          class="block p-error"
+        >
+          <div *ngIf="fcaiid.errors?.['required']">ID is required.</div>
+          <div *ngIf="fcaiid.errors?.['fcaiid']">ID should be valid</div>
+        </small>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          pInputText
+          formControlName="password"
+          class="w-full"
+          name="password"
+          placeholder="Type your password"
+        />
+        <small
+          *ngIf="password.invalid && (password.dirty || password.touched)"
+          class="block p-error"
+        >
+          <div *ngIf="password.errors?.['required']">Password is required.</div>
+        </small>
+      </div>
+      <p-button
+        label="SIGN IN"
+        styleClass="w-full"
+        [disabled]="loginForm.invalid"
+        type="submit"
+      ></p-button>
+      <div class="mt-2">Not a member? <a routerLink="/register">Register</a></div>
+    </p-card>
+  </form>
+</div>

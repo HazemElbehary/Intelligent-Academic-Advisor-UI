@@ -1,0 +1,29 @@
+<div class="container">
+    <h1>Please Select Courses You Complete</h1>
+  
+    <div *ngFor="let course of courses" class="flex items-center mb-2">
+      <!-- 
+        - bind all checkboxes into the same array via [(ngModel)]="selectedCodes" 
+        - [value] tells PrimeNG what to add/remove from the array 
+      -->
+      <p-checkbox
+        [(ngModel)]="selectedCodes"
+        [value]="course.code"
+        inputId="course-{{course.code}}"
+        name="courses">
+      </p-checkbox>
+      <label for="course-{{course.code}}" class="ml-2">
+        {{ course.code }}: {{ course.name }}
+      </label>
+    </div>
+  
+    <!-- Submit button at bottom -->
+    <button
+      pButton
+      type="button"
+      label="Submit"
+      class="mt-4"
+      (click)="onSubmit()">
+    </button>
+  </div>
+  

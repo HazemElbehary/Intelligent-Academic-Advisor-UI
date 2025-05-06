@@ -1,0 +1,36 @@
+<!-- chatbot.component.html -->
+<div class="d-flex flex-column vh-100">
+    <!-- header stays at top -->
+    <header class="py-3  text-center">
+      <h2 class="m-0">How can I help you from university Bylaws?</h2>
+    </header>
+  
+    <!-- chat area flexes to fill remaining height -->
+    <div class="card mx-3 my-2 overflow-auto" style="height: 60%;">
+      <ul class="list-group list-group-flush">
+        <li 
+          *ngFor="let chat of chatHistory"
+          class="list-group-item"
+          [ngClass]="{
+            'bg-light text-end': chat.type==='user',
+            'bg-white text-start': chat.type==='bot'
+          }"
+        >
+          {{ chat.message }}
+        </li>
+      </ul>
+    </div>
+  
+    <!-- input stays at bottom -->
+    <div class="input-group mx-3 mb-3" style="height: 10%;">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="userQuery"
+        placeholder="Type your question..."
+        (keyup.enter)="submitQuery()"
+      />
+      <button class="btn btn-primary" (click)="submitQuery()">Submit</button>
+    </div>
+  </div>
+  
