@@ -9,7 +9,7 @@ export interface ChatResponse {
 
 @Injectable({ providedIn: 'root' })
 export class ChatbotService {
-  private baseUrl = 'http://intelligentacademicadvisor.somee.com/api/chatbot';
+  private baseUrl = 'https://intelligentacademicadvisor.somee.com/api/chatbot';
 
   constructor(private http: HttpClient) { }
 

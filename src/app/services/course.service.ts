@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class CourseService {
 
-  private baseUrl = 'http://intelligentacademicadvisor.somee.com/api';
+  private baseUrl = 'https://intelligentacademicadvisor.somee.com/api';
 
 
   constructor(private http: HttpClient) { }
