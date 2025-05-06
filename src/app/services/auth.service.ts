@@ -63,8 +63,9 @@ export class AuthService {
         }),
         map(() => true),
         catchError((err: HttpErrorResponse) => {
-          const payload = err.error as { StatusCode: number; Message: string; Details: any };
-          const userMsg = payload?.Message ?? 'Unexpected error';
+          const payload = err.error as { statusCode: number; message: string; };
+          const userMsg = payload?.message ?? 'Unexpected error';
+          console.log(err);
           this.messageService.add({
             severity: 'error',
             summary: `Error ${err.status}`,
