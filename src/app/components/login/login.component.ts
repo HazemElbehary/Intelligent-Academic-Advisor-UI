@@ -38,14 +38,15 @@ export class LoginComponent {
       next: response => {
         console.log(response);
         if (response.status === 200) {
-          sessionStorage.setItem('token', response.body?.token as string);
+          localStorage.setItem('token', response.body?.token as string);
           this.router.navigate(['home']);
         } else {
-          this.msgService.add({ severity: 'error', summary: 'Error', detail: 'FCAI ID or password is wrong' });
+          this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Something went wrong' });
         }
       },
       error: err => {
-        this.msgService.add({ severity: 'error', summary: 'Error', detail: 'Something went wrong' });
+        console.log(err);
+        this.msgService.add({ severity: 'error', summary: 'Error', detail: 'FCAI ID or password is wrong' });
       }
     });
   }

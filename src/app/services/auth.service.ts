@@ -20,7 +20,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router, private messageService: MessageService) { }
 
   get token(): string | null {
-    return sessionStorage.getItem('token');
+    return localStorage.getItem('token');
   }
 
   
@@ -42,7 +42,7 @@ export class AuthService {
 
   isTokenExpired(token: string): boolean {
     const payload = JSON.parse(atob(token.split('.')[1]));
-    return Date.now() > payload.exp * 1000;
+    return Date.now() >= payload.exp * 1000;
   }
 
   isAuthenticated(): boolean {
@@ -51,35 +51,8 @@ export class AuthService {
     return !this.isTokenExpired(token);
   }
 
-  refreshToken(): Observable<boolean> {
-    return this.http
-      .post<{ token: string }>(`${this.baseUrl}/refreshToken`, 
-        {},                                // empty body
-        { withCredentials: true }          // ← tell the browser: send cookies
-      )
-      .pipe(
-        tap(resp => {
-          sessionStorage.setItem('token', resp.token);
-        }),
-        map(() => true),
-        catchError((err: HttpErrorResponse) => {
-          const payload = err.error as { statusCode: number; message: string; };
-          const userMsg = payload?.message ?? 'Unexpected error';
-          console.log(err);
-          this.messageService.add({
-            severity: 'error',
-            summary: `Error ${err.status}`,
-            detail: userMsg
-          });
-          this.logOut();
-          return of(false);
-        })
-      );
-  }
-  
-
   logOut() {
-    sessionStorage.removeItem('token');
+    localStorage.removeItem('token');
     this.router.navigate(['login']);
   }
 }

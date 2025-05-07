@@ -1,8 +1,0 @@
-{
-    "/api": {
-      "target": "http://intelligentacademicadvisor.somee.com",
-      "secure": false,
-      "changeOrigin": true,
-      "logLevel": "debug"
-    }
-  }

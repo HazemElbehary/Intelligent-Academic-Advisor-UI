@@ -180,8 +180,8 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['register-page2'], { queryParams: { universityId: postData.UniversityId } });
         },
         error: (err: HttpErrorResponse) => {
+          console.log(err);
           const payload = err.error as { StatusCode: number; Message: string; Details: any };
-
           // show the server’s Message
           const userMsg = payload?.Message ?? 'Unexpected error';
       

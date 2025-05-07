@@ -5,7 +5,8 @@ import { AuthService } from '../services/auth.service';
 export const authGuard: CanActivateFn = (route, state) => {
   const auth = inject(AuthService);
 
+  const router = inject(Router);
+
   return auth.isAuthenticated()
-    ? true
-    : auth.refreshToken();    // will redirect on failure
+    ? true : router.parseUrl('/login'); // redirect to login on failure
 };
